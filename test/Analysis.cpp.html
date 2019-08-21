@@ -1,0 +1,318 @@
+
+<!Doctype html>
+<html>
+  <head>
+    <meta http-equiv="x-ua-compatible" content="IE=11"> 
+    <style>
+      body {
+        padding:15px 40px;
+        font-family: Consolas;
+        font-size: 1em;
+        font-weight: normal;
+      }
+      span {
+        display:inline;
+      }
+      button {
+        width:220px;
+      }
+
+      .btn {
+      	position: fixed;
+        right: 50px;
+      }
+
+      .toggleClassDisplay {  }
+      .toggleMethodDisplay { }
+    </style>
+    <script>
+      function showHideClass(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+				let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+
+      function showHideFunction(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+      
+       function showHideComment(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+        if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+    </script>
+  </head>
+  <body>
+    <div class="btn">
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleClassDisplay')" checked >Check to show Class</div>
+	    <div><input type="checkbox" onchange="showHideClass(this, 'toggleFunctionDisplay')" checked >Check to show Function</div>
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleCommentDisplay')" checked >Check to show Comment</div>
+	</div>
+
+<h3>Analysis.cpp</h3>
+<pre>
+
+<div class="toggleCommentDisplay" style = "display: inline;">///////////////////////////////////////////////////////////////////////</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Analysis.cpp  - parse and analyse input file                      //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// ver 1.0                                                           //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Language:    C++, Visual Studio 2017                              //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Application: Project2, CSE687 - OOD Spring 2019                   //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Author:      Yishi Lu, Syracuse University, EECS                  //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//              ylu154@syr.edu                                       //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">///////////////////////////////////////////////////////////////////////</div>
+
+<a href='Analysis.h.html'>#include "Analysis.h"</a>
+#include "../FawcettPackage/Parser/ConfigureParser.h"
+#include "../FawcettPackage/FileSystem/FileSystem.h"
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; reset value of all private data &gt;----------------------------------------------</div>
+void Analysis::reset(bool test)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	includedeTagTable.clear();
+	classFunctionTagTable.clear();
+	commentTagTable.clear();
+	commentStartLine = -1, commentEndLine = -1;
+	if (test) {
+		std::cout &lt;&lt; "  size of includedeTagTable: " &lt;&lt; includedeTagTable.size() &lt;&lt; std::endl;
+		std::cout &lt;&lt; "  size of classFunctionTagTable: " &lt;&lt; classFunctionTagTable.size() &lt;&lt; std::endl;
+		std::cout &lt;&lt; "  size of commentTagTable: " &lt;&lt; commentTagTable.size() &lt;&lt; std::endl;
+		std::cout &lt;&lt; "  comment start line: " &lt;&lt; commentStartLine &lt;&lt; "\n  comment end Line: " &lt;&lt; commentEndLine &lt;&lt; std::endl;
+	}
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; search includeTagTable by given line number &gt;----------------------------------------------</div>
+std::string Analysis::searchIncludeTagTable(int lineNum)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	if (includedeTagTable.find(lineNum) != includedeTagTable.end())
+	{
+		std::string result = includedeTagTable.find(lineNum)-&gt;second;
+		includedeTagTable.erase(lineNum);
+		return result;
+	}
+	return "";
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; search classFunctionTagTable by given line number &gt;----------------------------------------------</div>
+std::string Analysis::searchClassFunctionTagTable(int lineNum)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	if (classFunctionTagTable.find(lineNum) != classFunctionTagTable.end())
+	{
+		std::string result = classFunctionTagTable.find(lineNum)-&gt;second;
+		classFunctionTagTable.erase(lineNum);
+		return result;
+	}
+	return "";
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; search commentTagTable by given line number &gt;----------------------------------------------</div>
+std::string Analysis::searchCommentTagTable(int lineNum)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	if (commentTagTable.find(lineNum) != commentTagTable.end())
+	{
+		std::string result = commentTagTable.find(lineNum)-&gt;second;
+		commentTagTable.erase(lineNum);
+		return result;
+	}
+	return "";
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; parse and analyse input file &gt;----------------------------------------------</div>
+void Analysis::analysisFile(std::string path, std::string filename, std::vector&lt;std::string&gt; filenameList)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	<div class="toggleCommentDisplay" style = "display: inline;">//log("-- Searching Class and Function");</div>
+	findClassFunctionTag(filename, path);
+	<div class="toggleCommentDisplay" style = "display: inline;">//log("-- Searching Comment\n");</div>
+	findCommentTag(filename, path);
+	<div class="toggleCommentDisplay" style = "display: inline;">//log("-- Searching Include Dependency\n");</div>
+	findIncludeTag(filename, path, filenameList);
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; find #include tag in the file &gt;----------------------------------------------</div>
+void Analysis::findIncludeTag(std::string fileName, std::string path, const std::vector&lt;std::string&gt; fileList)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	std::string fileLocation = path + "\\" + fileName;
+
+	Lexer::Toker toker;
+	toker.doReturnComments(false);
+	toker.open(fileLocation);
+
+	while (!toker.isDone())
+	{
+		if (toker.getTok() == "#")
+		{
+			if (toker.getTok() == "include")
+			{
+				std::string nextInclude = toker.getTok();
+				processIncludeTag(nextInclude, toker.lineCount(), fileList);
+			}
+		}
+	}
+	toker.close();
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; process #include tag in the file &gt;----------------------------------------------</div>
+void Analysis::processIncludeTag(std::string input, int currentLine, const std::vector&lt;std::string&gt; fileList)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	std::string link = "";
+
+	int start = input.find_first_of('"');
+	int end = input.find_last_of('"');
+	if (start &gt;= 0 && end &gt; start)
+	{
+		link = input.substr(start + 1, end - start - 1);
+		link = FileSystem::Path::getName(link);
+		if (std::find(fileList.begin(), fileList.end(), link) != fileList.end())
+		{
+			includedeTagTable.insert(std::make_pair(currentLine, "include#" + link));
+			<div class="toggleCommentDisplay" style = "display: inline;">//log("Find valid #include tag (line " + std::to_string(currentLine) + "): " + link + ", dependency is recorded.");</div>
+		}
+		<div class="toggleCommentDisplay" style = "display: inline;">//else log("Find #include tag " + link + ", but the corresponding file is not in the processing file list (the file is not to be converted to HTML). So not make dependency.");</div>
+	}
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; find and process class/function tag in the file &gt;----------------------------------------------</div>
+void Analysis::findClassFunctionTag(std::string fileName, std::string path)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	std::string fileLocation = path + "\\" + fileName;
+
+	CodeAnalysis::ConfigParseForCodeAnal configure;
+	CodeAnalysis::Parser* pParser = configure.Build();
+
+	configure.Attach(fileLocation);
+
+	while (pParser-&gt;next())
+		pParser-&gt;parse();
+	std::cout &lt;&lt; "\n";
+
+	CodeAnalysis::Repository* pRepo = CodeAnalysis::Repository::getInstance();
+	CodeAnalysis::ASTNode* pGlobalScope = pRepo-&gt;getGlobalScope();
+	myTreeWalk(pGlobalScope, classFunctionTagTable);
+}</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; find and process comment tag in the file &gt;----------------------------------------------</div>
+void Analysis::findCommentTag(std::string fileName, std::string path)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	int starLine = -1, endLine = -1;
+	std::string fileLocation = path + "\\" + fileName;
+
+	Lexer::Toker toker;
+	toker.doReturnComments(true);
+	toker.open(fileLocation);
+
+	while (!toker.isDone())
+	{
+		int count = 0;
+		std::string tok = toker.getTok();
+		if (toker.isSingleLineComment(tok)) 
+		{
+			commentTagTable.insert(std::make_pair(toker.lineCount(), "singleLineComment"));
+		}
+		else if (toker.isMultipleLineComment(tok)) 
+		{
+			for (char& c : tok) if (c == '\n') count++;
+			if(count == 0) commentTagTable.insert(std::make_pair(toker.lineCount(), "oneLineComment"));
+			else {
+				commentTagTable.insert(std::make_pair(toker.lineCount() - count, "commentStart"));
+				commentTagTable.insert(std::make_pair(toker.lineCount(), "commentEnd"));
+			}
+		}
+	}
+	toker.close();
+}</div>
+
+
+
+#ifdef TEST_ANALYSIS
+int main()
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	std::cout &lt;&lt; "\n  Testing Analysis";
+	std::cout &lt;&lt; "\n ====================================\n\n";
+
+	Analysis a;
+
+	std::vector&lt;std::string&gt; fileList;
+	fileList.push_back("Analysis.h");
+	fileList.push_back("Analysis.cpp");
+
+	std::cout &lt;&lt; "  --Test function findIncludeTag():\n";
+	a.findIncludeTag("Analysis.cpp", "..\\Analysis", fileList);
+
+	std::cout &lt;&lt; "\n\n  --Test function processIncludeTag():\n";
+	a.processIncludeTag("#include \"Analysis.h\"", 10, fileList);
+	a.processIncludeTag("#include \"test.cpp\"", 10, fileList);
+
+	std::cout &lt;&lt; "\n\n  --Test function findClassFunctionTag():\n";
+	a.findClassFunctionTag("Analysis.cpp", "..\\Analysis");
+
+	std::cout &lt;&lt; "\n\n  --Test function findCommentTag():\n";
+	a.findCommentTag("Analysis.cpp", "..\\Analysis");
+
+	std::cout &lt;&lt; "\n\n --Test function searchIndlucdeTagTable():\n";
+	std::string test = a.searchIncludeTagTable(10);
+	if (test != "") std::cout &lt;&lt; "  Find value by key 10 in the table, value: " &lt;&lt; test &lt;&lt; std::endl;
+	else std::cout &lt;&lt; "  Invalid key.\n";
+
+	std::cout &lt;&lt; "\n\n  --Test function searchCommentTagTable():\n";
+	test = a.searchCommentTagTable(2);
+	if (test != "") std::cout &lt;&lt; "  Find value by key 2 in the table, value: " &lt;&lt; test &lt;&lt; std::endl;
+	else std::cout &lt;&lt; "  Invalid key.\n";
+
+	std::cout &lt;&lt; "\n\n  --Test function classFunctionTagTable():\n";
+	test = a.searchClassFunctionTagTable(17);
+	if (test != "") std::cout &lt;&lt; "  Find value by key 17 in the table, value: " &lt;&lt; test &lt;&lt; std::endl;
+	else std::cout &lt;&lt; "  Invalid key.\n";
+
+	std::cout &lt;&lt; "\n\n  --Test function reset():\n";
+	a.reset(true);
+}</div>
+
+#endif <div class="toggleCommentDisplay" style = "display: inline;">// TEST_ANALYSIS</div>
+
+
+  </pre>
+  </body>
+</html>

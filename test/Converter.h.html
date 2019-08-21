@@ -1,0 +1,167 @@
+
+<!Doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        padding:15px 40px;
+        font-family: Consolas;
+        font-size: 1.25em;
+        font-weight: normal;
+      }
+      span {
+        display:inline;
+      }
+      button {
+        width:220px;
+      }
+
+      .btn {
+      	position: fixed;
+      	bottom: 50px;
+        right: 50px;
+      }
+
+      .toggleClassDisplay {  }
+      .toggleMethodDisplay { }
+    </style>
+    <script>
+      function showHideClass(className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+        for (let i = 0; i < elems.length; ++i) {
+          let displayProp = elems[i].style.display;
+          if (displayProp === 'none')
+            elems[i].style['display'] = "inline";
+          else
+            elems[i].style['display'] = "none";
+        }
+      }
+
+      function showHideFunction(className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+        for (let i = 0; i < elems.length; ++i) {
+          let displayProp = elems[i].style.display;
+          if (displayProp === 'none')
+            elems[i].style['display'] = "inline";
+          else
+            elems[i].style['display'] = "none";
+        }
+      }
+      
+       function showHideComment(className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+        for (let i = 0; i < elems.length; ++i) {
+          let displayProp = elems[i].style.display;
+          if (displayProp === 'none')
+            elems[i].style['display'] = "inline";
+          else
+            elems[i].style['display'] = "none";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="btn">
+	    <div><button onclick="showHideClass('toggleClassDisplay')">Show or Hide Class Contents</button></div>
+	    <div><button onclick="showHideFunction('toggleFunctionDisplay')">Show or Hide Function Contents</button></div>
+	    <div><button onclick="showHideComment('toggleCommentDisplay')">Show or Hide Comment Contents</button></div>
+	</div>
+
+<h3>Converter.h</h3>
+<pre>
+#pragma once
+
+<div class="toggleCommentDisplay" style = "display: inline;">/////////////////////////////////////////////////////////////////////////</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Converter.h  - converter input file to valid html file              //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// ver 1.0                                                             //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Language:      C++, Visual Studio 2017                              //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Application:   Project2, CSE687 - OOD Spring 2019                   //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Author:        Yishi Lu, Syracuse University, EECS                  //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//                ylu154@syr.edu                                       //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">/////////////////////////////////////////////////////////////////////////</div>
+<div class="toggleCommentDisplay" style = "display: inline;">/*
+ * Package Operations:
+ * -------------------
+ * This package contains one class: Converter.
+ * Its purpose is to convert input file to a valid html file, the
+ * converted file will be stored at another file with name fileName.html.
+ * It is implemented using package Dependencies, Display and Analysis:
+ * Package Dependencies is used to insert dependency link to output file
+ * Package Display is used to insert wrapping &lt;div&gt; to output file
+ * Package Analysis stores analysied information about input file, and 
+ * we need to retrive those information to insert any link and &lt;div&gt;
+ *
+ * This package provides functions:
+ * makeHTML()                               convert input file to HTML file
+ * convertSpeicalTag(str, str, str)			convert "&lt;" or "&gt;" to special token
+ * checkIfstream()							check file is opened or not
+ * checkOfstream()							check file is opened or not
+ * processInputFile()						process input file to produce output file
+ * log(str)									print message to console
+ *
+ *
+ * Required Files:
+ * ---------------
+ * Converter.h, Converter.cpp,
+ * Dependencies.h, Dependencies.cpp
+ * Display.h, Display.cpp,
+ * Analysis.h, Analysis.cpp
+ * FileSystem.h, FileSystem.cpp
+ *
+ * Build Process:
+ * --------------
+ * devenv Project2.sln /ReBuild
+ *
+ * Maintenance History:
+ * --------------------
+ * ver 1.0 : 05 March 2019
+ * - first release
+ */</div>
+
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include "../Dependencies/Dependencies.h"
+#include "../Display/Display.h"
+#include "../Analysis/Analysis.h"
+
+class Converter 
+<div class="toggleClassDisplay" style = "display: inline;">{
+	private:
+		Display display;
+		Dependencies dependency;
+	public:
+		std::string convertSpeicalTag(std::string line);
+
+		void makeHTML(std::string filename, std::string folder, std::string path, Analysis anal);
+
+		bool checkIfstream(std::ifstream &in, std::string fileName);
+
+		bool checkOfstream(std::ofstream &out, std::string fileName);
+
+		void processInputFile(std::ofstream &convertingFile, std::ifstream &inputFile, Analysis anal);
+
+		void log(std::string msg);
+};</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; print message to console &gt;----------------------------------------------</div>
+inline void Converter::log(std::string msg)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	std::cout &lt;&lt; "  " + msg + "  \n";
+}</div>
+
+
+
+
+  </pre>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+
+<!Doctype html>
+<html>
+  <head>
+    <meta http-equiv="x-ua-compatible" content="IE=11"> 
+    <style>
+      body {
+        padding:15px 40px;
+        font-family: Consolas;
+        font-size: 1em;
+        font-weight: normal;
+      }
+      span {
+        display:inline;
+      }
+      button {
+        width:220px;
+      }
+
+      .btn {
+      	position: fixed;
+        right: 50px;
+      }
+
+      .toggleClassDisplay {  }
+      .toggleMethodDisplay { }
+    </style>
+    <script>
+      function showHideClass(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+				let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+
+      function showHideFunction(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+      
+       function showHideComment(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+        if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+    </script>
+  </head>
+  <body>
+    <div class="btn">
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleClassDisplay')" checked >Check to show Class</div>
+	    <div><input type="checkbox" onchange="showHideClass(this, 'toggleFunctionDisplay')" checked >Check to show Function</div>
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleCommentDisplay')" checked >Check to show Comment</div>
+	</div>
+
+<h3>ActionsAndRules.cpp</h3>
+<pre>
+<div class="toggleCommentDisplay" style = "display: inline;">/////////////////////////////////////////////////////////////////////</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//  ActionsAndRules.cpp - implements new parsing rules and actions //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//  ver 3.4                                                        //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//  Language:      Visual C++ 2008, SP1                            //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//  Platform:      Dell Precision T7400, Vista Ultimate SP1        //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//  Application:   Prototype for CSE687 Pr1, Sp09                  //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//  Author:        Jim Fawcett, CST 4-187, Syracuse University     //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//                 (315) 443-3948, jfawcett@twcny.rr.com           //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">/////////////////////////////////////////////////////////////////////</div>
+
+<a href='ActionsAndRules.h.html'>#include "ActionsAndRules.h"</a>
+#include "../Utilities/Utilities.h"
+
+using namespace CodeAnalysis;
+
+Repository* Repository::instance;
+
+#ifdef TEST_ACTIONSANDRULES
+
+#include &lt;iostream&gt;
+<a href='ActionsAndRules.h.html'>#include "ActionsAndRules.h"</a>
+#include "Tokenizer.h"
+#include "Semiression.h"
+
+int main(int argc, char* argv[])
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+  std::cout &lt;&lt; "\n  Testing ActionsAndRules class\n "
+            &lt;&lt; std::string(30,'=') &lt;&lt; std::endl;
+
+  try
+  {
+    Utilities::StringHelpers::Title(
+      "Actions and Rules - these construction tests are no longer valid"
+    );
+    <div class="toggleCommentDisplay" style = "display: inline;">//PreprocStatement pps;</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//pps.addAction(&ppq);</div>
+
+    <div class="toggleCommentDisplay" style = "display: inline;">//FunctionDefinition fnd;</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//PrettyPrintToQ pprtQ(resultsQ);</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//fnd.addAction(&pprtQ);</div>
+
+    <div class="toggleCommentDisplay" style = "display: inline;">//Toker toker("../ActionsAndRules.h");</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//Semi se(&toker);</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//Parser parser(&se);</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//parser.addRule(&pps);</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//parser.addRule(&fnd);</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//while(se.get())</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//  parser.parse();</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//size_t len = resultsQ.size();</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//for(size_t i=0; i&lt;len; ++i)</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//{</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//  std::cout &lt;&lt; "\n  " &lt;&lt; resultsQ.front().c_str();</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//  resultsQ.pop();</div>
+    <div class="toggleCommentDisplay" style = "display: inline;">//}</div>
+    std::cout &lt;&lt; "\n\n";
+  }
+  catch(std::exception& ex)
+  {
+    std::cout &lt;&lt; "\n\n  " &lt;&lt; ex.what() &lt;&lt; "\n\n";
+  }
+}</div>
+#endif
+
+  </pre>
+  </body>
+</html>

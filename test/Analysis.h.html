@@ -1,0 +1,195 @@
+
+<!Doctype html>
+<html>
+  <head>
+    <meta http-equiv="x-ua-compatible" content="IE=11"> 
+    <style>
+      body {
+        padding:15px 40px;
+        font-family: Consolas;
+        font-size: 1em;
+        font-weight: normal;
+      }
+      span {
+        display:inline;
+      }
+      button {
+        width:220px;
+      }
+
+      .btn {
+      	position: fixed;
+        right: 50px;
+      }
+
+      .toggleClassDisplay {  }
+      .toggleMethodDisplay { }
+    </style>
+    <script>
+      function showHideClass(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+				let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+
+      function showHideFunction(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+      
+       function showHideComment(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+        if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+    </script>
+  </head>
+  <body>
+    <div class="btn">
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleClassDisplay')" checked >Check to show Class</div>
+	    <div><input type="checkbox" onchange="showHideClass(this, 'toggleFunctionDisplay')" checked >Check to show Function</div>
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleCommentDisplay')" checked >Check to show Comment</div>
+	</div>
+
+<h3>Analysis.h</h3>
+<pre>
+#pragma once
+
+<div class="toggleCommentDisplay" style = "display: inline;">///////////////////////////////////////////////////////////////////////</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Analysis.h  - parse and analyse input file                        //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// ver 1.0                                                           //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Language:    C++, Visual Studio 2017                              //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Application: Project2, CSE687 - OOD Spring 2019                   //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">// Author:      Yishi Lu, Syracuse University, EECS                  //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">//              ylu154@syr.edu                                       //</div>
+<div class="toggleCommentDisplay" style = "display: inline;">///////////////////////////////////////////////////////////////////////</div>
+<div class="toggleCommentDisplay" style = "display: inline;">/*
+ * Package Operations:
+ * -------------------
+ * This package contains one class: Analysis.
+ * Its purpose is to parse and analyse content of inputfile
+ * It is implemented using ConfigureParser.h
+ * We use ConfigureParser.h to parse the input file. We mainly focus on 
+ * the comment, #include, and class and function in the file
+ * once we found them, their type, start line, and end line will
+ * be recorded on corresponding table (unordered_map)
+ *
+ * This package provides functions:
+ * findIncludeTag()					find #include tag in the input file
+ * processIncludeTag()				once #include is found, process it
+ * findCommentTag()					find comment in the input file
+ * findClassFunctionTag()			find class and function in the input file
+ * analysisFile()					starting parse and analyse input file
+ * searchIndlucdeTagTable()			search result in the indlucdeTagTable
+ * searchClassFunctionTagTable()	search result in the classFunctionTagTable
+ * searchCommentTagTable()			search result in the commentTagTable
+ * reset()							reset all private data
+ * log(str)							print message to console
+ *
+ * Required Files:
+ * ---------------
+ * Analysis.h, Analysis.cpp
+ * ConfigureParser.h, ConfigureParser.cpp
+ * FileSystem.h, FileSystem.cpp
+ *
+ * Build Process:
+ * --------------
+ * devenv Project2.sln /ReBuild
+ *
+ * Maintenance History:
+ * --------------------
+ * ver 1.0 : 05 March 2019
+ * - first release
+ */</div>
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;iterator&gt; 
+#include &lt;unordered_map&gt; 
+
+class Analysis
+<div class="toggleClassDisplay" style = "display: inline;">{
+	private:
+		std::unordered_map&lt;int, std::string&gt; includedeTagTable;
+
+		std::unordered_map&lt;int, std::string&gt; classFunctionTagTable;
+
+		std::unordered_map&lt;int, std::string&gt; commentTagTable;
+
+		int commentStartLine = -1, commentEndLine = -1;
+
+	public:
+		void findIncludeTag(std::string fileName, std::string path, const std::vector&lt;std::string&gt; fileList);
+
+		void processIncludeTag(std::string input, int currentLine, const std::vector&lt;std::string&gt; fileList);
+
+		void findCommentTag(std::string fileName, std::string path);
+
+		void findClassFunctionTag(std::string fileName, std::string path);
+
+		void analysisFile(std::string path, std::string filename, std::vector&lt;std::string&gt; filenameList);
+
+		std::string searchIncludeTagTable(int lineNum);
+
+		std::string searchClassFunctionTagTable(int lineNum);
+
+		std::string searchCommentTagTable(int lineNum);
+
+		void reset(bool test = false);
+
+		void log(std::string msg);
+};</div>
+
+<div class="toggleCommentDisplay" style = "display: inline;">//----&lt; print message to console &gt;----------------------------------------------</div>
+inline void Analysis::log(std::string msg)
+<div class="toggleFunctionDisplay" style = "display: inline;">{
+	std::cout &lt;&lt; "  " + msg + "  \n";
+}</div>
+
+
+  </pre>
+  </body>
+</html>

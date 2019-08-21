@@ -1,0 +1,94 @@
+
+<!Doctype html>
+<html>
+  <head>
+    <meta http-equiv="x-ua-compatible" content="IE=11"> 
+    <style>
+      body {
+        padding:15px 40px;
+        font-family: Consolas;
+        font-size: 1em;
+        font-weight: normal;
+      }
+      span {
+        display:inline;
+      }
+      button {
+        width:220px;
+      }
+
+      .btn {
+      	position: fixed;
+        right: 50px;
+      }
+
+      .toggleClassDisplay {  }
+      .toggleMethodDisplay { }
+    </style>
+    <script>
+      function showHideClass(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+				let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+
+      function showHideFunction(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+      
+       function showHideComment(box, className) {
+        let elems = document.getElementsByClassName(className);
+        if (elems === null) {
+          return;
+        }
+		
+        if(box.checked == true){
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "inline";
+			}
+		}
+		else {
+			for (let i = 0; i < elems.length; ++i) {
+			  let displayProp = elems[i].style.display;
+				elems[i].style['display'] = "none";
+			}
+		}
+      }
+    </script>
+  </head>
+  <body>
+    <div class="btn">
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleClassDisplay')" checked >Check to show Class</div>
+	    <div><input type="checkbox" onchange="showHideClass(this, 'toggleFunctionDisplay')" checked >Check to show Function</div>
+		<div><input type="checkbox" onchange="showHideClass(this, 'toggleCommentDisplay')" checked >Check to show Comment</div>
+	</div>
